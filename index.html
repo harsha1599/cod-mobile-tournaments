@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoD Mobile Tournaments | Enter the War Zone</title>
+    <title>CoD Mobile Tournaments | Elite Gaming Platform</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,6 +20,9 @@
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#tournaments" class="nav-link">Tournaments</a></li>
                 <li><a href="#leaderboard" class="nav-link">Leaderboard</a></li>
+                <li><a href="#" class="nav-link" id="messagesBtn" style="display:none;">💬 Messages</a></li>
+                <li><a href="#" class="nav-link" id="friendsBtn" style="display:none;">👥 Friends</a></li>
+                <li><a href="#" class="nav-link" id="adminBtn" style="display:none;">⚙️ Admin</a></li>
                 <li><a href="#account" class="nav-link" id="authBtn">Login</a></li>
             </ul>
         </div>
@@ -40,6 +43,11 @@
     <!-- Tournaments Section -->
     <section id="tournaments" class="tournaments">
         <h2>Active Tournaments</h2>
+        <div class="filter-options">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="ongoing">Ongoing</button>
+            <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+        </div>
         <div class="tournaments-grid" id="tournamentsContainer">
             <!-- Tournaments will be loaded here -->
         </div>
@@ -57,6 +65,7 @@
                         <th>Wins</th>
                         <th>Points</th>
                         <th>Tournaments</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="leaderboardBody">
@@ -75,8 +84,10 @@
                 <p><strong>Participants:</strong> <span id="modalParticipants"></span></p>
                 <p><strong>Entry Fee:</strong> <span id="modalFee"></span></p>
                 <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+                <p><strong>Format:</strong> <span id="modalFormat"></span></p>
                 <p><strong>Description:</strong> <span id="modalDescription"></span></p>
             </div>
+            <div class="modal-streams" id="modalStreams"></div>
             <button class="btn btn-primary" id="registerBtn">Register Now</button>
         </div>
     </div>
@@ -133,6 +144,8 @@
             <div class="dashboard-tabs">
                 <button class="tab-btn active" data-tab="registered">Registered Tournaments</button>
                 <button class="tab-btn" data-tab="statistics">Statistics</button>
+                <button class="tab-btn" data-tab="match-history">Match History</button>
+                <button class="tab-btn" data-tab="earnings">Earnings</button>
             </div>
             
             <div id="registered" class="tab-content active">
@@ -159,8 +172,164 @@
                     </div>
                 </div>
             </div>
+
+            <div id="match-history" class="tab-content">
+                <div id="matchHistoryList"></div>
+            </div>
+
+            <div id="earnings" class="tab-content">
+                <div class="earnings-container">
+                    <div class="earnings-card">
+                        <h3>Total Earnings</h3>
+                        <p id="totalEarnings">₹0</p>
+                    </div>
+                    <div class="earnings-card">
+                        <h3>Pending Payouts</h3>
+                        <p id="pendingPayouts">₹0</p>
+                    </div>
+                    <div id="earningsHistory"></div>
+                </div>
+            </div>
             
             <button class="btn btn-danger" id="logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Friends Modal -->
+    <div id="friendsModal" class="modal">
+        <div class="modal-content friends-modal">
+            <span class="close">&times;</span>
+            <h2>Friends</h2>
+            <div class="friends-tabs">
+                <button class="tab-btn active" data-tab="my-friends">My Friends</button>
+                <button class="tab-btn" data-tab="requests">Requests</button>
+                <button class="tab-btn" data-tab="search">Search Players</button>
+            </div>
+
+            <div id="my-friends" class="tab-content active">
+                <div id="friendsList"></div>
+            </div>
+
+            <div id="requests" class="tab-content">
+                <div id="friendRequests"></div>
+            </div>
+
+            <div id="search" class="tab-content">
+                <input type="text" id="playerSearch" placeholder="Search players..." class="search-input">
+                <div id="searchResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages Modal -->
+    <div id="messagesModal" class="modal">
+        <div class="modal-content messages-modal">
+            <span class="close">&times;</span>
+            <h2>Messages</h2>
+            <div class="messages-container">
+                <div class="conversations-list" id="conversationsList"></div>
+                <div class="chat-window" id="chatWindow" style="display:none;">
+                    <div class="chat-header" id="chatHeader"></div>
+                    <div class="chat-messages" id="chatMessages"></div>
+                    <div class="chat-input-area">
+                        <input type="text" id="messageInput" placeholder="Type a message...">
+                        <button class="btn btn-small" id="sendMessageBtn">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content admin-modal">
+            <span class="close">&times;</span>
+            <h2>Admin Dashboard</h2>
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="users">Users</button>
+                <button class="tab-btn" data-tab="tournaments">Tournaments</button>
+                <button class="tab-btn" data-tab="results">Match Results</button>
+                <button class="tab-btn" data-tab="payouts">Payouts</button>
+                <button class="tab-btn" data-tab="reports">Reports</button>
+            </div>
+
+            <div id="overview" class="tab-content active">
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card">
+                        <h3>Total Users</h3>
+                        <p id="adminTotalUsers">0</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <h3>Active Tournaments</h3>
+                        <p id="adminActiveTournaments">0</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <h3>Total Revenue</h3>
+                        <p id="adminTotalRevenue">₹0</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <h3>Pending Payouts</h3>
+                        <p id="adminPendingPayouts">₹0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="users" class="tab-content">
+                <div class="admin-controls">
+                    <input type="text" id="userSearch" placeholder="Search users...">
+                    <button class="btn btn-small" onclick="AdminPanel.loadUsersList()">Search</button>
+                </div>
+                <div id="usersList"></div>
+            </div>
+
+            <div id="tournaments" class="tab-content">
+                <button class="btn btn-primary" onclick="openModal('createTournamentModal')">Create Tournament</button>
+                <div id="adminTournamentsList"></div>
+            </div>
+
+            <div id="results" class="tab-content">
+                <div id="pendingResults"></div>
+            </div>
+
+            <div id="payouts" class="tab-content">
+                <div id="payoutsList"></div>
+            </div>
+
+            <div id="reports" class="tab-content">
+                <div id="reportsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Tournament Modal -->
+    <div id="createTournamentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Tournament</h2>
+            <form id="createTournamentForm">
+                <input type="text" placeholder="Tournament Name" required>
+                <textarea placeholder="Description"></textarea>
+                <input type="text" placeholder="Prize Pool (₹)" required>
+                <input type="text" placeholder="Entry Fee (₹)" required>
+                <input type="number" placeholder="Max Participants" required>
+                <input type="date" placeholder="Start Date" required>
+                <input type="text" placeholder="Format" required>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Analytics Modal -->
+    <div id="analyticsModal" class="modal">
+        <div class="modal-content analytics-modal">
+            <span class="close">&times;</span>
+            <h2>Analytics Dashboard</h2>
+            <div class="analytics-grid">
+                <div class="analytics-chart" id="userGrowthChart"></div>
+                <div class="analytics-chart" id="revenueChart"></div>
+                <div class="analytics-chart" id="tournamentChart"></div>
+            </div>
         </div>
     </div>
 
@@ -173,11 +342,21 @@
     </footer>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="config.js"></script>
     <script src="supabase.js"></script>
     <script src="auth.js"></script>
     <script src="tournaments.js"></script>
     <script src="payments.js"></script>
+    <script src="email-verification.js"></script>
+    <script src="tournament-results.js"></script>
+    <script src="match-history.js"></script>
+    <script src="friend-system.js"></script>
+    <script src="messaging-system.js"></script>
+    <script src="streaming-integration.js"></script>
+    <script src="admin-panel.js"></script>
+    <script src="payout-system.js"></script>
+    <script src="analytics-dashboard.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
