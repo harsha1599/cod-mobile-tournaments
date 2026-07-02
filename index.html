@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoD Mobile Tournaments | Enter the War Zone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/40" alt="CoD Logo">
+                <span>CoD Tournaments</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#tournaments" class="nav-link">Tournaments</a></li>
+                <li><a href="#leaderboard" class="nav-link">Leaderboard</a></li>
+                <li><a href="#account" class="nav-link" id="authBtn">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="ENTER THE WAR ZONE">ENTER THE WAR ZONE</h1>
+            <p class="subtitle">Compete in Elite Call of Duty Mobile Tournaments</p>
+            <button class="btn btn-primary" id="startBtn">Start Competing</button>
+        </div>
+        <div class="hero-video">
+            <div class="video-placeholder"></div>
+        </div>
+    </section>
+
+    <!-- Tournaments Section -->
+    <section id="tournaments" class="tournaments">
+        <h2>Active Tournaments</h2>
+        <div class="tournaments-grid" id="tournamentsContainer">
+            <!-- Tournaments will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard" class="leaderboard">
+        <h2>Global Leaderboard</h2>
+        <div class="leaderboard-container">
+            <table class="leaderboard-table" id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player Name</th>
+                        <th>Wins</th>
+                        <th>Points</th>
+                        <th>Tournaments</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Modal for Tournament Details -->
+    <div id="tournamentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div class="modal-body">
+                <p><strong>Prize Pool:</strong> <span id="modalPrize"></span></p>
+                <p><strong>Participants:</strong> <span id="modalParticipants"></span></p>
+                <p><strong>Entry Fee:</strong> <span id="modalFee"></span></p>
+                <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+                <p><strong>Description:</strong> <span id="modalDescription"></span></p>
+            </div>
+            <button class="btn btn-primary" id="registerBtn">Register Now</button>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content auth-modal">
+            <span class="close">&times;</span>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <!-- Login Tab -->
+            <div id="login" class="tab-content active">
+                <form id="loginForm">
+                    <input type="email" placeholder="Email" id="loginEmail" required>
+                    <input type="password" placeholder="Password" id="loginPassword" required>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+
+            <!-- Signup Tab -->
+            <div id="signup" class="tab-content">
+                <form id="signupForm">
+                    <input type="text" placeholder="Username" id="signupUsername" required>
+                    <input type="email" placeholder="Email" id="signupEmail" required>
+                    <input type="password" placeholder="Password" id="signupPassword" required>
+                    <input type="text" placeholder="Game ID (CoD Mobile)" id="gameId" required>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Complete Payment</h2>
+            <div class="modal-body">
+                <p><strong>Tournament:</strong> <span id="paymentTournament"></span></p>
+                <p><strong>Amount:</strong> <span id="paymentAmount"></span></p>
+            </div>
+            <button class="btn btn-primary" id="payNowBtn">Pay Now</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Modal -->
+    <div id="dashboardModal" class="modal">
+        <div class="modal-content dashboard-modal">
+            <span class="close">&times;</span>
+            <h2>My Dashboard</h2>
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="registered">Registered Tournaments</button>
+                <button class="tab-btn" data-tab="statistics">Statistics</button>
+            </div>
+            
+            <div id="registered" class="tab-content active">
+                <div id="registeredList"></div>
+            </div>
+
+            <div id="statistics" class="tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Wins</h3>
+                        <p id="totalWins">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Points</h3>
+                        <p id="totalPoints">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Tournaments Played</h3>
+                        <p id="tournamentsPlayed">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Win Rate</h3>
+                        <p id="winRate">0%</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-danger" id="logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 CoD Mobile Tournaments. All rights reserved.</p>
+            <p>Powered by Supabase & Razorpay</p>
+        </div>
+    </footer>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="config.js"></script>
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+    <script src="tournaments.js"></script>
+    <script src="payments.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

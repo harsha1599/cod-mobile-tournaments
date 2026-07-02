@@ -1,0 +1,27 @@
+{
+  "name": "cod-mobile-tournaments",
+  "version": "1.0.0",
+  "description": "A competitive tournament platform for Call of Duty Mobile gamers",
+  "main": "index.html",
+  "scripts": {
+    "start": "open index.html",
+    "build": "echo 'No build step needed for vanilla JS'"
+  },
+  "keywords": [
+    "call-of-duty",
+    "mobile",
+    "tournaments",
+    "gaming",
+    "esports"
+  ],
+  "author": "harsha1599",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harsha1599/cod-mobile-tournaments.git"
+  }
+}
