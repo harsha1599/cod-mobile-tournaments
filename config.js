@@ -1,6 +1,6 @@
 // Supabase Configuration
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://xjixjuvmuimtrjkxnwey.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_qDY5780wrBgu2UHdtueDKg_T8rvCV-C';
 
 // Razorpay Configuration
 const RAZORPAY_KEY_ID = 'YOUR_RAZORPAY_KEY_ID';
